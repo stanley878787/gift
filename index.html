@@ -79,16 +79,22 @@
     </section>
 
     <section class="finale" id="finale" hidden>
-      <div class="envelope-scene" aria-hidden="true">
-        <div class="envelope open">
-          <div class="envelope-back"></div>
-          <div class="letter-peek"></div>
-          <div class="envelope-front"></div>
-          <div class="envelope-flap"></div>
-        </div>
+      <div class="finale-invitation" id="finaleInvitation">
+        <p class="stage-kicker">通關成功</p>
+        <h2>最後一封信，留給你打開</h2>
+        <p>點一下信封，收下這封信。</p>
       </div>
 
-      <article class="letter-card" id="letterCard">
+      <button class="envelope-scene" id="openEnvelopeButton" type="button" aria-label="打開信封">
+        <span class="envelope">
+          <span class="envelope-back"></span>
+          <span class="letter-peek"></span>
+          <span class="envelope-front"></span>
+          <span class="envelope-flap"></span>
+        </span>
+      </button>
+
+      <article class="letter-card" id="letterCard" hidden>
         <p class="letter-kicker">To <span id="friendName">朋友</span></p>
         <h2 id="cardTitle">這封信終於被你打開了</h2>
         <p id="cardMessage">這裡會放你之後親手寫給朋友的話。</p>
@@ -109,6 +115,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 

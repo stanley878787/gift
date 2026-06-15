@@ -56,7 +56,7 @@
   },
 ];
 
-const state = { currentFriend: null, currentLetter: null, step: 0 };
+const state = { currentFriend: null, currentLetter: null, letterRevealTimer: null, restartRevealTimer: null, step: 0 };
 
 const elements = {
   introPanel: document.querySelector("#introPanel"),
@@ -84,6 +84,9 @@ const elements = {
   cardMessage: document.querySelector("#cardMessage"),
   cardSignature: document.querySelector("#cardSignature"),
   cardDate: document.querySelector("#cardDate"),
+  letterCard: document.querySelector("#letterCard"),
+  finaleInvitation: document.querySelector("#finaleInvitation"),
+  openEnvelopeButton: document.querySelector("#openEnvelopeButton"),
   restartButton: document.querySelector("#restartButton"),
   sparkleTemplate: document.querySelector("#sparkleTemplate"),
   cursorGlow: document.querySelector("#cursorGlow")
@@ -175,21 +178,53 @@ function loadFriendChallenge(friend, letter) {
   elements.photoChallenge.alt = `${letter.displayName} 的照片題`;
 }
 
-function revealFinale(letter) {
+function showFinaleEnvelope() {
   elements.questCard.hidden = true;
   elements.introPanel.hidden = true;
   elements.finale.hidden = false;
+  elements.finale.classList.remove("is-opened");
+  elements.letterCard.hidden = true;
+  elements.openEnvelopeButton.hidden = false;
+  elements.finaleInvitation.hidden = false;
+  burstSparkles();
+}
+
+function openFinaleLetter(letter) {
+  elements.finale.classList.add("is-opened");
+  elements.finaleInvitation.hidden = true;
   elements.friendName.textContent = letter.displayName;
   elements.cardTitle.textContent = letter.cardTitle;
   elements.cardMessage.textContent = letter.cardMessage;
   elements.cardSignature.textContent = letter.signature;
   elements.cardDate.textContent = new Intl.DateTimeFormat("zh-TW", { year: "numeric", month: "long", day: "numeric" }).format(new Date());
   burstSparkles();
+
+  state.letterRevealTimer = window.setTimeout(() => {
+    state.letterRevealTimer = null;
+    elements.openEnvelopeButton.hidden = true;
+    document.body.classList.add("letter-opened");
+    elements.letterCard.hidden = false;
+    burstSparkles();
+
+    state.restartRevealTimer = window.setTimeout(() => {
+      state.restartRevealTimer = null;
+      document.body.classList.add("letter-ready");
+    }, 950);
+  }, 2600);
 }
 
 function resetGame() {
   state.currentFriend = null;
   state.currentLetter = null;
+  document.body.classList.remove("letter-opened", "letter-ready");
+  if (state.restartRevealTimer) {
+    window.clearTimeout(state.restartRevealTimer);
+    state.restartRevealTimer = null;
+  }
+  if (state.letterRevealTimer) {
+    window.clearTimeout(state.letterRevealTimer);
+    state.letterRevealTimer = null;
+  }
   setStep(0);
   setFeedback("輸入綽號和專屬密語，就可以開始。", "success");
   elements.identityForm.reset();
@@ -198,6 +233,10 @@ function resetGame() {
   elements.questCard.hidden = false;
   elements.introPanel.hidden = false;
   elements.finale.hidden = true;
+  elements.finale.classList.remove("is-opened");
+  elements.letterCard.hidden = true;
+  elements.openEnvelopeButton.hidden = false;
+  elements.finaleInvitation.hidden = false;
   showStage("identityStage");
   elements.identityInput.focus();
 }
@@ -308,13 +347,33 @@ elements.photoForm.addEventListener("submit", async (event) => {
     setFeedback(`${state.currentLetter.displayName}，再靠近一點點就猜到了。提示：${state.currentFriend.photoCaption}`, "error");
     return;
   }
-  setFeedback("全答對了，信封打開中。", "success");
-  setTimeout(() => revealFinale(state.currentLetter), 450);
+  setFeedback("全答對了，最後一封信正在等你。", "success");
+  setTimeout(showFinaleEnvelope, 450);
+});
+
+elements.openEnvelopeButton.addEventListener("click", () => {
+  if (!state.currentLetter || elements.finale.classList.contains("is-opened")) return;
+  openFinaleLetter(state.currentLetter);
 });
 
 elements.restartButton.addEventListener("click", resetGame);
 setupPointerEffects();
 setFeedback("輸入綽號和專屬密語，就可以開始。", "success");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

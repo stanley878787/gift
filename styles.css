@@ -182,15 +182,60 @@ h1 {
 }
 .photo-frame img { display: block; width: 100%; height: auto; max-height: min(62vh, 520px); object-fit: contain; border-radius: 12px; background: linear-gradient(135deg, rgba(15, 16, 36, 0.06), rgba(247, 201, 120, 0.18)), var(--paper-deep); }
 .photo-frame figcaption { margin: 10px 6px 0; color: #6c5260; font-size: 0.92rem; }
-.finale { display: grid; justify-items: center; gap: 22px; animation: fadeUp 620ms ease both; }
-.envelope-scene { position: relative; width: min(360px, 78vw); height: 230px; display: grid; place-items: end center; perspective: 1000px; }
-.envelope { position: relative; width: 320px; max-width: 100%; height: 190px; animation: envelopeRise 900ms ease both; }
+.finale { display: grid; justify-items: center; align-content: center; gap: 22px; min-height: min(720px, 82vh); animation: fadeUp 620ms ease both; }
+.finale-invitation { text-align: center; animation: fadeUp 620ms ease both; }
+body.letter-opened .finale {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  overflow-y: auto;
+}
+body.letter-opened .letter-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  width: min(720px, calc(100% - 32px));
+  margin: 0;
+  transform: translate(-50%, -50%) rotate(0.4deg);
+  animation: letterArriveCentered 900ms ease both;
+}
+body.letter-opened #restartButton {
+  display: none;
+}
+body.letter-ready #restartButton {
+  display: block;
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 5;
+  transform: translateX(-50%);
+}
+body.letter-ready #restartButton:hover {
+  transform: translateX(-50%) translateY(-2px);
+}.finale-invitation h2 { margin: 0; font-size: 2rem; line-height: 1.35; }
+.finale-invitation p:last-child { margin: 12px 0 0; color: #e5d9ca; line-height: 1.8; }
+.envelope-scene { position: relative; width: min(360px, 78vw); height: 230px; display: grid; place-items: end center; perspective: 1000px; border: 0; padding: 0; color: inherit; background: transparent; cursor: pointer; }
+.envelope-scene:focus-visible { outline: 0; }
+.envelope-scene:focus-visible .envelope { filter: drop-shadow(0 0 18px rgba(247, 201, 120, 0.42)); }
+.envelope-scene:hover .envelope { transform: translateY(-4px) scale(1.02); }
+.finale.is-opened .envelope-scene:hover .envelope { transform: none; }
+.envelope { position: relative; width: 320px; max-width: 100%; height: 190px; animation: envelopeRise 900ms ease both; transition: transform 220ms ease, opacity 560ms ease; }
 .envelope-back, .envelope-front, .envelope-flap, .letter-peek { position: absolute; inset-inline: 0; margin: auto; }
 .envelope-back { bottom: 0; width: 100%; height: 156px; border-radius: 14px; background: linear-gradient(145deg, #f0b974, #d98f65); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32); }
-.letter-peek { bottom: 46px; width: 78%; height: 140px; border-radius: 12px 12px 0 0; background: repeating-linear-gradient(0deg, transparent 0 25px, rgba(131, 91, 82, 0.11) 26px), var(--paper); transform: translateY(62px); animation: letterPeek 1s ease 420ms both; }
-.envelope-front { bottom: 0; width: 100%; height: 156px; border-radius: 14px; background: linear-gradient(32deg, transparent 49%, rgba(255, 238, 193, 0.34) 50%, transparent 51%), linear-gradient(-32deg, transparent 49%, rgba(255, 238, 193, 0.34) 50%, transparent 51%), linear-gradient(145deg, #efaa78, #d88568); clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%); }
-.envelope-flap { top: 34px; width: 100%; height: 116px; background: linear-gradient(145deg, #ffd49d, #e79f72); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top; animation: flapOpen 900ms ease 150ms both; }
-.letter-card { position: relative; padding: clamp(28px, 6vw, 50px); color: var(--ink); background: linear-gradient(rgba(255, 247, 232, 0.92), rgba(255, 247, 232, 0.92)), repeating-linear-gradient(0deg, transparent 0 30px, rgba(198, 151, 102, 0.16) 31px); transform: rotate(0.4deg); animation: letterArrive 900ms ease 850ms both; }
+.letter-peek { bottom: 72px; width: 72%; height: 104px; border-radius: 12px 12px 0 0; background: repeating-linear-gradient(0deg, transparent 0 25px, rgba(131, 91, 82, 0.11) 26px), var(--paper); opacity: 0; transform: translateY(72px); transition: opacity 220ms ease 620ms, transform 1100ms ease 620ms; z-index: 1; }
+.envelope-front { bottom: 0; width: 100%; height: 156px; border-radius: 14px; z-index: 2; background: linear-gradient(32deg, transparent 49%, rgba(255, 238, 193, 0.34) 50%, transparent 51%), linear-gradient(-32deg, transparent 49%, rgba(255, 238, 193, 0.34) 50%, transparent 51%), linear-gradient(145deg, #efaa78, #d88568); clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%); }
+.envelope-flap { top: 34px; width: 100%; height: 116px; background: linear-gradient(145deg, #ffd49d, #e79f72); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top; transition: transform 900ms ease 120ms, z-index 0ms linear 540ms; z-index: 3; }
+.finale.is-opened .envelope-scene { cursor: default; pointer-events: none; animation: envelopeExit 720ms ease 1850ms forwards; }
+.finale.is-opened .envelope-flap { transform: rotateX(178deg); z-index: 0; }
+.finale.is-opened .letter-peek { opacity: 1; transform: translateY(-72px); }
+.letter-card { position: relative; padding: clamp(28px, 6vw, 50px); color: var(--ink); background: linear-gradient(rgba(255, 247, 232, 0.92), rgba(255, 247, 232, 0.92)), repeating-linear-gradient(0deg, transparent 0 30px, rgba(198, 151, 102, 0.16) 31px); transform: rotate(0.4deg); animation: letterArrive 900ms ease both; }
 .letter-card::before, .letter-card::after { content: ""; position: absolute; border-radius: 999px; pointer-events: none; }
 .letter-card::before { width: 76px; height: 22px; top: -10px; left: 11%; background: rgba(247, 201, 120, 0.62); transform: rotate(-7deg); }
 .letter-card::after { width: 90px; height: 90px; right: 22px; bottom: 18px; background: radial-gradient(circle, rgba(233, 166, 166, 0.3), transparent 68%); }
@@ -198,6 +243,7 @@ h1 {
 #cardMessage { margin: 22px 0 26px; color: #4a3940; font-size: 1.16rem; line-height: 2; white-space: pre-line; }
 .letter-card footer { display: flex; justify-content: space-between; gap: 16px; color: #7b5b61; font-family: "ChenYuluoyan", "Noto Serif TC", "Microsoft JhengHei", serif; font-size: 1.42rem; font-weight: 400; letter-spacing: 0.04em; }
 .ghost-button { color: #fff7e8; border: 1px solid rgba(255, 238, 193, 0.3); background: rgba(255, 255, 255, 0.08); box-shadow: none; }
+.finale #restartButton { display: none; }
 .sparkle { position: fixed; z-index: 4; width: 8px; height: 8px; border-radius: 999px; pointer-events: none; background: #fff3c5; box-shadow: 0 0 16px #ffdca2; animation: sparklePop 850ms ease-out forwards; }
 @keyframes twinkle { 0%, 100% { opacity: 0.36; transform: scale(0.86); } 50% { opacity: 1; transform: scale(1.45); } }
 @keyframes drift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(26px, -20px, 0); } }
@@ -206,7 +252,9 @@ h1 {
 @keyframes flapOpen { from { transform: rotateX(0deg); z-index: 3; } to { transform: rotateX(178deg); z-index: 0; } }
 @keyframes letterPeek { from { transform: translateY(62px); } to { transform: translateY(-34px); } }
 @keyframes envelopeRise { from { opacity: 0; transform: translateY(24px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes envelopeExit { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(38px) scale(0.96); } }
 @keyframes letterArrive { from { opacity: 0; transform: translateY(28px) rotate(0.4deg); } to { opacity: 1; transform: translateY(0) rotate(0.4deg); } }
+@keyframes letterArriveCentered { from { opacity: 0; transform: translate(-50%, calc(-50% + 28px)) rotate(0.4deg); } to { opacity: 1; transform: translate(-50%, -50%) rotate(0.4deg); } }
 @keyframes sparklePop { from { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } to { opacity: 0; transform: translate3d(var(--x), var(--y), 0) scale(0.2); } }
 @keyframes cursorSparkle { from { opacity: 0.85; transform: translate3d(0, 0, 0) scale(1); } to { opacity: 0; transform: translate3d(var(--trail-x), var(--trail-y), 0) scale(0.25); } }
 @media (hover: none), (pointer: coarse) {
@@ -227,6 +275,19 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
