@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="一份需要答對三題才能打開的朋友禮物驚喜卡片。" />
+  <title>這是我的回禮</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="night-sky" aria-hidden="true">
+    <span class="star star-a"></span>
+    <span class="star star-b"></span>
+    <span class="star star-c"></span>
+    <span class="star star-d"></span>
+    <span class="glow glow-a"></span>
+    <span class="glow glow-b"></span>
+    <span class="cursor-glow" id="cursorGlow"></span>
+  </div>
+
+  <main class="app-shell">
+    <section class="intro-panel" id="introPanel">
+      <p class="eyebrow">A Letter For You</p>
+      <h1>這是我的回禮</h1>
+      <p class="intro-copy">先回答三個小關卡，最後會打開一封專屬於你的信。</p>
+    </section>
+
+    <section class="quest-card" id="questCard" aria-live="polite">
+      <div class="progress-wrap" aria-label="闖關進度">
+        <div class="progress-step active" data-step-dot="0">1</div>
+        <div class="progress-line"></div>
+        <div class="progress-step" data-step-dot="1">2</div>
+        <div class="progress-line"></div>
+        <div class="progress-step" data-step-dot="2">3</div>
+      </div>
+
+      <div class="stage active" id="identityStage">
+        <p class="stage-kicker">第 1 題 / 身份</p>
+        <h2>你是誰呢？</h2>
+        <p class="stage-copy">輸入你的綽號和專屬密語。可以在晚上打開比較有fu，滑鼠也可以動一動w</p>
+        <form class="answer-form" id="identityForm">
+          <label for="identityInput">你的綽號</label>
+          <input id="identityInput" name="identity" type="text" autocomplete="nickname" placeholder="輸入你的綽號" required />
+          <label for="secretInput">專屬密語</label>
+          <input id="secretInput" name="secret" type="password" autocomplete="one-time-code" placeholder="輸入我私下給你的密語" required />
+          <button type="submit">開始</button>
+        </form>
+      </div>
+
+      <div class="stage" id="textStage" hidden>
+        <p class="stage-kicker">第 2 題 / 文字題</p>
+        <h2 id="textQuestion">我們之間的某個小暗號是？</h2>
+        <p class="stage-copy" id="textPrompt">請輸入答案。</p>
+        <form class="answer-form" id="textForm">
+          <label for="textAnswer">你的答案</label>
+          <input id="textAnswer" name="textAnswer" type="text" autocomplete="off" required />
+          <button type="submit">送出答案</button>
+        </form>
+      </div>
+
+      <div class="stage" id="photoStage" hidden>
+        <p class="stage-kicker">第 3 題 / 照片題</p>
+        <h2 id="photoQuestion">這張照片代表什麼？</h2>
+        <figure class="photo-frame">
+          <img id="photoChallenge" src="" alt="照片題圖片" />
+          <figcaption id="photoCaption">看照片猜答案。</figcaption>
+        </figure>
+        <form class="answer-form" id="photoForm">
+          <label for="photoAnswer">你的答案</label>
+          <input id="photoAnswer" name="photoAnswer" type="text" autocomplete="off" required />
+          <button type="submit">打開信封</button>
+        </form>
+      </div>
+
+      <p class="feedback" id="feedback" role="status"></p>
+    </section>
+
+    <section class="finale" id="finale" hidden>
+      <div class="envelope-scene" aria-hidden="true">
+        <div class="envelope open">
+          <div class="envelope-back"></div>
+          <div class="letter-peek"></div>
+          <div class="envelope-front"></div>
+          <div class="envelope-flap"></div>
+        </div>
+      </div>
+
+      <article class="letter-card" id="letterCard">
+        <p class="letter-kicker">To <span id="friendName">朋友</span></p>
+        <h2 id="cardTitle">這封信終於被你打開了</h2>
+        <p id="cardMessage">這裡會放你之後親手寫給朋友的話。</p>
+        <footer>
+          <span id="cardSignature">from 你</span>
+          <time id="cardDate"></time>
+        </footer>
+      </article>
+
+      <button class="ghost-button" id="restartButton" type="button">再玩一次</button>
+    </section>
+  </main>
+
+  <template id="sparkleTemplate">
+    <span class="sparkle" aria-hidden="true"></span>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+

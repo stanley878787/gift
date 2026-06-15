@@ -1,0 +1,41 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">範例照片題圖片</title>
+  <desc id="desc">深夜暖光桌面，上面有信紙、星星與拍立得。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#15162f"/>
+      <stop offset="0.55" stop-color="#271a32"/>
+      <stop offset="1" stop-color="#4a2830"/>
+    </linearGradient>
+    <radialGradient id="lamp" cx="68%" cy="32%" r="50%">
+      <stop offset="0" stop-color="#ffdca2" stop-opacity="0.92"/>
+      <stop offset="0.36" stop-color="#f7c978" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#f7c978" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <rect width="1200" height="760" fill="url(#lamp)"/>
+  <g opacity="0.85">
+    <circle cx="160" cy="118" r="3" fill="#fff4cc"/>
+    <circle cx="332" cy="82" r="2" fill="#fff4cc"/>
+    <circle cx="990" cy="146" r="3" fill="#fff4cc"/>
+    <circle cx="1062" cy="314" r="2" fill="#fff4cc"/>
+    <circle cx="224" cy="602" r="2" fill="#fff4cc"/>
+  </g>
+  <g filter="url(#softShadow)">
+    <rect x="294" y="156" width="612" height="430" rx="28" fill="#fff7e8" transform="rotate(-3 600 371)"/>
+    <path d="M365 246h455M360 318h466M356 390h455M352 462h360" stroke="#d9af85" stroke-width="4" opacity="0.32" transform="rotate(-3 600 371)"/>
+    <rect x="420" y="202" width="350" height="230" rx="18" fill="#f1c184" transform="rotate(4 595 317)"/>
+    <rect x="446" y="228" width="298" height="178" rx="12" fill="#251a2e" transform="rotate(4 595 317)"/>
+    <circle cx="585" cy="318" r="68" fill="#f7c978" opacity="0.35"/>
+    <path d="M500 382c56-70 103-74 152 0" fill="none" stroke="#ffdca2" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g opacity="0.92">
+    <path d="M222 498l14 30 33 4-24 23 6 32-29-16-29 16 6-32-24-23 33-4z" fill="#f7c978"/>
+    <path d="M966 480l10 22 24 3-17 17 4 24-21-12-21 12 4-24-17-17 24-3z" fill="#e9a6a6"/>
+  </g>
+  <text x="600" y="640" text-anchor="middle" fill="#fff7e8" font-family="Noto Serif TC, Microsoft JhengHei, serif" font-size="42" font-weight="700">把這張換成你們真正的照片</text>
+</svg>
