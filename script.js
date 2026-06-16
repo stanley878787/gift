@@ -39,7 +39,7 @@
     textAnswerHashes: [
       "7b528b960e9fd6b96b9568345ce390b72095f718d0ffa29e196c2722262a33d8",
     ],
-    photo: "assets/photos/img2.png",
+    photo: "assets/photos/img2.PNG",
     photoQuestion: "你畫我猜",
     photoCaption: "手舞足蹈的貓",
     photoAnswerHashes: [
